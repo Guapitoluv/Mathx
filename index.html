@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./styles/main.css">
+  <title>Mathx</title>
+</head>
+
+<body>
+    <header class="app-header">
+        <button
+            id="sidebar-btn"
+            class="icon-button"
+            aria-label="Abrir menu"
+        >
+            <img
+                id="menus-img"
+                src="./midia/images/menus.png"
+                alt=""
+            >
+        </button>
+
+        <h1>Mathx</h1>
+    </header>
+
+    <main class="app">
+        <aside id="sidebar" class="sidebar">
+            <ul id="expr-list" class="expression-list"></ul>
+
+            <button
+                id="add-expr"
+                class="add-expression"
+            >
+                +
+            </button>
+        </aside>
+
+        <section class="graph-container">
+            <canvas id="display"></canvas>
+        </section>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  <script type="module" src="./src/ui/sidebar.js"></script>
+</body>
+
+</html>
