@@ -1,6 +1,6 @@
-# Current Supported Implementation:
+Current Supported Implementation:
 
-## Operations:
+# Operations:
 - Add: "x + y";
 - Sub: "x - y";
 - Neg: "-x";
@@ -9,7 +9,7 @@
 - Div: "x / y";
 - Pow: "x ^ y";
 
-## Symbols:
+# Symbols:
 - Deg: "x°" // convert to radians
 
 // OBS: "f(x) != f(x°)"
@@ -17,8 +17,7 @@
 -> "f(x°) = 'Degrees'"
 -> "90° ≈ 1.5 rad"
 
-## Variables:
-"a = 2" => "b = a" => "b = 2"
+# Variables: "a = 2" => "b = a" => "b = 2"
 
 // OBS: Variables are evaluated in all its instances:
 -> case 1: "expr1: b = a + 2" => "b = NaN"
@@ -27,16 +26,16 @@
     => "b = 2 + 2"
     => "b = 4"
 
-## Objects:
+# Objects:
 - Matrix: "[[a, b, c], [d, e, f], [g,h,j]]";
 - Polyline: "[(x1, y1),(x2, y2), (x3, y3)]";
 
-## Functions:
+# Functions:
 - Cos: "cos(x)", "cos x";
 - Sin: "sin(x)", "sin x";
 - Tan: "tan(x)", "tan x";
 
-## Graphic Functions:
+# Graphic Functions:
 - Plot: "plot((x, y))", "plot (x, y)", "plot([[a], [b]])";
 
 // OBS: plot() return the value in the scope, then:

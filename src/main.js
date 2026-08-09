@@ -1,7 +1,7 @@
+import { ExpressionEngine } from "./expression_engine.js";
 import { ExpressionsHandler } from "./ui/expressions_handler.js";
-import { graph } from "./data.js";
+import { environment, graph } from "./data.js";
 
-const eh=new ExpressionsHandler()
+const ee=new ExpressionEngine(environment);
+const eh=new ExpressionsHandler(ee);
 graph.draw();
-
-eh.init()
