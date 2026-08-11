@@ -1,6 +1,6 @@
-Current Supported Implementation:
+#Current Supported Implementation:
 
-# Operations:
+## Operations:
 - Add: "x + y";
 - Sub: "x - y";
 - Neg: "-x";
@@ -9,7 +9,7 @@ Current Supported Implementation:
 - Div: "x / y";
 - Pow: "x ^ y";
 
-# Symbols:
+## Symbols:
 - Deg: "x°" // convert to radians
 
 // OBS: "f(x) != f(x°)"
@@ -17,7 +17,7 @@ Current Supported Implementation:
 -> "f(x°) = 'Degrees'"
 -> "90° ≈ 1.5 rad"
 
-# Variables: "a = 2" => "b = a" => "b = 2"
+## Variables: "a = 2" => "b = a" => "b = 2"
 
 // OBS: Variables are evaluated in all its instances:
 -> case 1: "expr1: b = a + 2" => "b = NaN"
@@ -26,16 +26,16 @@ Current Supported Implementation:
     => "b = 2 + 2"
     => "b = 4"
 
-# Objects:
+## Objects:
 - Matrix: "[[a, b, c], [d, e, f], [g,h,j]]";
 - Polyline: "[(x1, y1),(x2, y2), (x3, y3)]";
 
-# Functions:
+## Functions:
 - Cos: "cos(x)", "cos x";
 - Sin: "sin(x)", "sin x";
 - Tan: "tan(x)", "tan x";
 
-# Graphic Functions:
+## Graphic Functions:
 - Plot: "plot((x, y))", "plot (x, y)", "plot([[a], [b]])";
 
 // OBS: plot() return the value in the scope, then:
@@ -48,16 +48,16 @@ Current Supported Implementation:
 
 - - -
 
-# What can be plotted in the graph?:
+## What can be plotted in the graph?:
 - Matrix (2xn or nx2) // plot all the rows or cols
 - Polyline // plot all the point's coordinates
 - Tuple (size=2)
 
 - - -
 
-# Matrix:
+## Matrix:
 
-## Operations:
+### Operations:
 - Mul: "A * B = [Sum(ain*bnj)]"
 -> Scalar: "A * b = [aij*b]"
 
@@ -106,3 +106,39 @@ expr[1]
 
 # Set Theory
 #
+
+- - -
+
+# Last Updates:
+
+## Set Functions (prototype):
+Now you can set your own functions with the sintaxe "f(x)=x+1...".
+
+//OBS: A current bug is the function returning NaN if you use more than one function inside a function
+
+\[Example\]:
+f(x)=x+t(x)
+t(x)=x+2
+f(1) == 1+1+2 == 4
+
+f(x)=x+t(x)+s(x)
+t(x)=x+2
+s(x)=x+3
+f(1) == NaN
+
+f(x)=x+t(x)
+t(x)=x+2+s(x)
+s(x)=x+3
+f(1) == 1+1+2+1+3 == 8
+// obs: the result is with delay
+
+## Graphic
+Now the zoom is not fixed at the origin, it zooms like the origin is always in the center of the pinch touch.
+
+## New Operations and Functions
+- Matrix sum;
+- Matrix sub;
+- sqrt(x);
+- max(x, y, ..., z) or max((x, y, ..., z));
+- min(x, y, ..., z) or min((x, y, ..., z));
+- sum(x, y, ..., z) or sum((x, y, ..., z));
