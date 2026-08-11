@@ -5,6 +5,15 @@ export class Environment {
         this.listeners = [];
         this.plotList = new Map();
         this.plotListeners = [];
+        this.functions = {};
+    }
+    
+    setFunction(name, parameters, body) {
+        console.log("setFunction", name);
+        this.functions[name] = {
+            parameters,
+            body
+        }
     }
 
     set(name, value) {

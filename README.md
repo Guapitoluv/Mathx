@@ -72,3 +72,37 @@ Current Supported Implementation:
 - More mathematical functions and operators;
 - Site layout update;
 - Helper as a page;
+
+- - -
+
+# Future Implementations:
+
+## Function Definition:
+f(x) = x+y
+
+## Demarked Inner Expresions:
+x + y; x = 1; y = 2; plot((x, y))
+
+// OBJ: Order matter?
+
+## Squared Root:
+sqr(x)
+√(x)
+√x
+
+## Connect Function:
+connect(x, y, z...)
+
+## Convertion:
+Polyline(x)
+Matrix(x)
+Tuple(x)
+
+# New Functions:
+sum(x,y,...) or sum([x, y, z])
+
+# Expression Reference:
+expr[1]
+
+# Set Theory
+#

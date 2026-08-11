@@ -5,7 +5,9 @@ export class Parser {
     // =========================================================
     
     parse(tokens) {
+        this.isInsideFunc = false;
         this.tokens = tokens;
+        this.end = tokens.length;
         this.i = 0;
         
         const node = this.parseDefinition();
@@ -123,19 +125,6 @@ export class Parser {
     }
     
     prefixNumber(token) {
-        /*
-        if (this.currentType("DEGREE")) {
-            this.advance();
-            
-            return {
-                type: "Degrees",
-                value: {
-                    type: "Number",
-                    value: token.value
-                }
-            }
-        }
-        */
         return {
             type: "Number",
             value: token.value
@@ -144,6 +133,21 @@ export class Parser {
     
     prefixIdentifier(token) {
         if (this.currentType("LEFT_PAREN")) {
+            console.log("prefixIdentifier");
+            
+            let i=1;
+            
+            while (true) {
+                if (this.i+i+1 >= this.end) break;
+                
+                if (this.peek(i)?.type === "RIGHT_PAREN") {
+                    if (this.peek(i+1)?.type === "EQUAL") {
+                        return this.parseFunctionDefinition(token.value);
+                    }
+                }
+                
+                i++;
+            }
             return this.parseFunctionCall(token.value);
         }
         
@@ -157,6 +161,12 @@ export class Parser {
                 arguments: [this.expression(0)]
             };
         }
+        
+        if (this.isInsideFunc)
+            return {
+                type: "FunctionVariable",
+                name: token.value
+            }
         
         return {
             type: "Variable",
@@ -316,6 +326,35 @@ export class Parser {
         }
     
         return this.expression(0);
+    }
+    
+    parseFunctionDefinition(name) {
+        this.expect("LEFT_PAREN");
+        
+        const parameters = [];
+        
+        if (!this.currentType("RIGHT_PAREN")) {
+            parameters.push(this.expect("IDENTIFIER").value);
+            
+            while (this.currentType("COMMA")) {
+                this.advance();
+                parameters.push(this.expect("IDENTIFIER").value);
+            }
+        }
+        
+        this.expect("RIGHT_PAREN");
+        this.expect("EQUAL");
+        
+        this.isInsideFunc = true;
+        const body = this.expression(0);
+        this.isInsideFunc = false;
+        
+        return {
+            type: "FunctionDefinition",
+            name,
+            parameters,
+            body
+        }
     }
     
     parseFunctionCall(name) {

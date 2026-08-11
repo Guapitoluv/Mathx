@@ -1,3 +1,10 @@
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
 export class Matrix {
     constructor(data, rule=null) {
         this.data = data;
@@ -52,7 +59,7 @@ export class Matrix {
     
     static fromRule(rows, cols, rule) {
         const matrix = new Matrix(
-            Array.from({ length: rows }, () => Array(col))
+            Array.from({ length: rows }, () => Array(cols))
         );
         
         return matrix.create(rule);
@@ -97,6 +104,9 @@ export class Matrix {
     }
     
     equals(other) {
+        if (this.rows !== other.rows || this.cols !== other.cols)
+            return false;
+        
         for (let i=0;i<this.rows;i++) {
             for (let j=0;j<this.cols;j++) {
                 if (this.get(i, j) !== other.get(i, j))
@@ -108,11 +118,11 @@ export class Matrix {
     
     
     add(other) {
-        this.create((i, j) => this.get(i, j) + other.get(i, j));
+        return this.create((i, j) => this.get(i, j) + other.get(i, j));
     }
     
     subtract(other) {
-        this.create((i, j) => this.get(i, j) - other.get(i, j));
+        return this.create((i, j) => this.get(i, j) - other.get(i, j));
     }
     
     multiply(other) {
@@ -123,19 +133,78 @@ export class Matrix {
             throw new Error("M * M, lin !== col");
         }
         
-        return this.create((i, j) => {
-            let s = 0;
+        const matrix = [];
+        
+        for (let i=0;i<this.rows;i++) {
+            matrix.push([]);
             
-            for (let n=0;n<this.cols;n++) {
-                s += this.get(i, n) * other.get(n, j);
+            for (let j=0;j<other.cols;j++) {
+                let s = 0;
+            
+                for (let n=0;n<this.cols;n++) {
+                    s += this.get(i, n) * other.get(n, j);
+                }
+                
+                matrix[i].push(s);
             }
+        }
+        
+        return new Matrix(matrix);
+    }
+    
+    static zeros(rows, cols) {
+        const matrix = [];
+        
+        for (let i=0;i<rows;i++) {
+            matrix.push([]);
             
-            return s;
-        });
+            for (let j=0;j<cols;j++) {
+                matrix[i].push(0);
+            }
+        }
+        
+        return new Matrix(matrix);
+    }
+    
+    static ones(rows, cols) {
+        const matrix = [];
+        
+        for (let i=0;i<rows;i++) {
+            matrix.push([]);
+            
+            for (let j=0;j<cols;j++) {
+                matrix[i].push(1);
+            }
+        }
+        
+        return new Matrix(matrix);
+    }
+    
+    static random(rows, cols, min=null, max=null) {
+        if (min !== null && max === null) {
+            max = min;
+            min = 0;
+        }
+        
+        const matrix = [];
+        
+        for (let i=0;i<rows;i++) {
+            matrix.push([]);
+            
+            for (let j=0;j<cols;j++) {
+                matrix[i].push(
+                    (max !== null)
+                        ?getRandomInt(min, max)
+                        :Math.random()
+                );
+            }
+        }
+        
+        return new Matrix(matrix);
     }
 
     minor(i, j) {
-        const matrix = this.rows
+        const matrix = this.data
             .filter((_, row) => row !== i)
             .map(row =>
                 row.filter((_, col) => col !== j)
@@ -169,7 +238,16 @@ export class Matrix {
         for (let j=0;j<this.cols;j++) {
             det += this.get(0, j) * this.cofactor(0, j);
         }
-
+      
         return det;
+    }
+    
+    transpose() {
+        const matrix = [];
+        
+        for (let i=0;i<this.cols;i++)
+            matrix.push(this.column(i));
+        
+        this.data = matrix;
     }
 }

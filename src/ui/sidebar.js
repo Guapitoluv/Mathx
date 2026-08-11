@@ -17,11 +17,26 @@ document.addEventListener("touchend", event => {
     const endX = event.changedTouches[0].clientX;
     const delta = endX - startX;
 
-    if (delta > 100) {
+    if (delta > 300) {
         sideBar.classList.add("show");
-    } else if (delta < -100) {
+    } else if (delta < -300) {
         sideBar.classList.remove("show");
     }
 
     startX = null;
 });
+
+let h=false;
+let to=null;
+
+document.addEventListener("touchstart", () => {
+    if (h) {
+        console.log("here");
+       document.body.style.zoom = "100%"
+    }
+    
+    h=true;
+    setTimeout(() => {
+        h = false
+    }, 2000);
+})
