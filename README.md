@@ -1,4 +1,4 @@
-#Current Supported Implementation:
+# Current Supported Implementation:
 
 ## Operations:
 - Add: "x + y";
@@ -63,6 +63,60 @@
 
 // OBS: The internal Matrix clasd already have all operations
 ... including determinant, transpose, inverse etc.
+
+- - -
+
+# Pipeline:
+
+Symbol -> Token -> AST -> Object/Result
+
+## Tokenization:
+
+Symbol -> Token
+
+### Tokens:
+- "IDENTIFIER"
+- "NUMBER"
+- "COMMA"
+- "LEFT_PAREN"
+- "RIGHT_PAREN"
+- "PLUS"
+- "MINUS"
+- "DIVIDE"
+- "MULTIPLY"
+- "POWER"
+- "LEFT_BRACKET"
+- "RIGHT_BRACKET"
+- "LEFT_BRACE" // not used yet
+- "RIGHT_BRACE" // not used yet
+
+## Parsing:
+
+Token -> AST
+
+### ASTs:
+- "Number"
+- "Variable"
+- "Function"
+- "FunctionDefinition"
+- "Unary"
+- "Binary"
+- "FunctionVariable"
+- "Matrix"
+- "Tuple"
+- "Index"
+- "ListOfPoints"
+- "Degrees"
+- "Definition"
+
+## Evaluation:
+
+AST -> Object
+
+### Objects:
+- Matrix
+- Polyline
+// OBS: The other operations is calculated and it's result returned, then there's no object for this.
 
 - - -
 
